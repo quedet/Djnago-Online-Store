@@ -1,0 +1,63 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}{% if category %} {{ category }} {% else %} All {% endif %} products{% endblock %}
+
+{% block content %}
+<div class="flex gap-8">
+    <div class="basis-1/5 flex flex-col gap-2">
+        <div>
+            <div class="flex items-center gap-2 py-2 px-2 border">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+                <span>
+                    Categories
+                </span>
+            </div>
+        </div>
+        <div>
+            <div>
+                <a href="{% url 'shop:product_list' %}" class="block py-3 border-b">
+                    All
+                </a>
+            </div>
+            {% for cat in categories %}
+            <div>
+                <a href="{{ cat.get_absolute_url }}" class="block py-3 border-b">{{ cat.name }}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="flex flex-col gap-8 basis-4/5">
+        <header class="flex flex-col gap-2">
+            <h1 class="text-3xl">
+                Product Lists
+            </h1>
+            {% if category %}
+                <div>
+                    {{ category }}
+                </div>
+            {% endif %}
+        </header>
+        <section class="grid grid-cols-3 gap-8 justify-between">
+            {% for product in products %}
+            <a href="{{ product.get_absolute_url }}" class="flex flex-col gap-3 border py-4 px-4">
+                <header class="border-b pb-3">
+                    <picture>
+                        <img class="w-full h-full" height="100" src="{{ product.image.url }}" alt="">
+                    </picture>
+                </header>
+                <div class="flex flex-col gap-2">
+                    <div>
+                        {{ product.price }}$
+                    </div>
+                    <div class="text-lg line-clamp-3">
+                        {{ product.name }}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </section>
+    </div>
+</div>
+{% endblock %}

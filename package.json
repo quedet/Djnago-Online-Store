@@ -1,0 +1,15 @@
+{
+  "name": "Shop_starter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tailwindcss build -i ./shop/static/dist/css/tw.css -o ./shop/static/css/base.css --watch"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.1.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.4.0"
+  }
+}
