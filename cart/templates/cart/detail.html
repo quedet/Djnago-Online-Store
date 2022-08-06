@@ -29,7 +29,7 @@
                                         <img width="200px" src="{{ product.image.url }}" alt="">
                                     </a>
                                 </td>
-                                <td class="py-4 px-4">{{ product.name }}</td>
+                                <td class="py-4 px-4 line-clamp-2">{{ product.name }}</td>
                                 <td class="py-4 px-4">
                                     <form action="{% url 'cart:cart_add' product.id %}" method="post">
                                         {% csrf_token %}
@@ -58,9 +58,9 @@
             </table>
         </div>
         <div>
-            <p>
-                <a href="{% url 'shop:product_list' %}">Continue shopping</a>
-                <a href="#">Continue shopping</a>
+            <p class="flex justify-end items-center gap-4">
+                <a href="{% url 'shop:product_list' %}" class="block py-4 px-4 bg-grey-400">Continue shopping</a>
+                <a href="#" class="block py-4 px-4 bg-blue-400">Checkout</a>
             </p>
         </div>
     </section>
