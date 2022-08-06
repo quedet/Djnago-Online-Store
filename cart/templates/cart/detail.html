@@ -1,0 +1,68 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}My Cart{% endblock %}
+
+{% block content %}
+<div class="flex flex-col gap-8">
+    <header>
+        <h1 class="text-3xl">Your shopping cart</h1>
+    </header>
+    <section class="flex flex-col gap-4">
+        <div>
+            <table class="">
+                <thead>
+                    <tr class="w-screen border py-4">
+                        <th class="py-4">Image</th>
+                        <th class="py-4">Product</th>
+                        <th class="py-4">Quantity</th>
+                        <th class="py-4">Remove</th>
+                        <th class="py-4">Unit price</th>
+                        <th class="py-4">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                        {% with product=item.product %}
+                            <tr class="border-b py-4">
+                                <td class="py-4 px-4">
+                                    <a href="{{ product.get_absolute_url }}">
+                                        <img width="200px" src="{{ product.image.url }}" alt="">
+                                    </a>
+                                </td>
+                                <td class="py-4 px-4">{{ product.name }}</td>
+                                <td class="py-4 px-4">
+                                    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                                        {% csrf_token %}
+                                        {{ item.update_quantity_form.quantity }}
+                                        {{ item.update_quantity_form.override }}
+                                        <input type="submit" value="Update">
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="{% url 'cart:cart_remove' product.id %}" method="post">
+                                        <input type="submit" value="Remove">
+                                        {% csrf_token %}
+                                    </form>
+                                </td>
+                                <td class="py-4 px-4">${{ item.price }}</td>
+                                <td class="py-4 px-4">${{ item.total_price }}</td>
+                            </tr>
+                        {% endwith %}
+                    {% endfor %}
+                    <tr class="border py-4">
+                        <td class="py-4 px-4">Total</td>
+                        <td colspan="4"></td>
+                        <td class="py-4 px-4">${{ cart.get_total_price }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <p>
+                <a href="{% url 'shop:product_list' %}">Continue shopping</a>
+                <a href="#">Continue shopping</a>
+            </p>
+        </div>
+    </section>
+</div>
+{% endblock %}

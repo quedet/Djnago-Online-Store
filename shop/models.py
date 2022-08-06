@@ -5,7 +5,7 @@ from django.utils.text import slugify
 
 # Create your models here.
 class Category(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, db_index=True)
     slug = models.SlugField(max_length=255, unique=True)
 
     class Meta:
@@ -26,8 +26,8 @@ class Category(models.Model):
     
 
 class Product(models.Model):
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
+    name = models.CharField(max_length=255, db_index=True)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     
     image = models.ImageField(blank=True, upload_to='products/%Y/%m/%d/', default='defaults/noimage.png')

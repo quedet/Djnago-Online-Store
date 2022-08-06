@@ -25,12 +25,11 @@
             <div class="text-2xl">
                 {{ product.name}}
             </div>
-            <div>
-                Quantity
-            </div>
-            <div>
-                Add to cart
-            </div>
+            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                {% csrf_token %}
+                {{ cart_product_form }}
+                <input type="submit" value="Add to cart">
+            </form>
         </div>
     </div>
     {% if product.description %}
