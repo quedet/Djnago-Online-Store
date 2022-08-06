@@ -1,0 +1,60 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+Checkout
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col gap-8">
+    <header>
+        <h1 class="text-3xl">Checkout</h1>
+    </header>
+    <section class="flex gap-8">
+        <div class="flex-10 w-full">
+            <form method="post" class="flex flex-col gap-4">
+                <div class="py-2 px-4 border flex flex-col gap-1">
+                    <label for="id_first_name">Fistname</label>
+                    {{ form.first_name}}
+                </div>
+                <div class="py-2 px-4 border flex flex-col gap-1">
+                    <label for="id_last_name">Lastname</label>
+                    {{ form.last_name}}
+                </div>
+                <div class="py-2 px-4 border flex flex-col gap-1">
+                    <label for="id_email">Email</label>
+                    {{ form.email}}
+                </div>
+                <div class="py-2 px-4 border flex flex-col gap-1">
+                    <label for="id_address">Address</label>
+                    {{ form.address}}
+                </div>
+                <div class="py-2 px-4 border flex flex-col gap-1">
+                    <label for="id_postal_code">Postal Code</label>
+                    {{ form.postal_code}}
+                </div>
+                <div class="py-2 px-4 border flex flex-col gap-1">
+                    <label for="id_city">City</label>
+                    {{ form.city}}
+                </div>
+                <div>
+                    <input type="submit" value="Place order" class="py-2 px-4 bg-blue-100 cursor-pointer">
+                </div>
+            {% csrf_token %}
+            </form>
+        </div>
+        <div>
+            <header>
+                <h3 class="text-lg">Your order</h3>
+            </header>
+            <ul>
+                {% for item in cart %}
+                    <li>
+                        {{ item.quantity }}x {{ item.product.name }} <span>${{ item.total_price }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p>Total: ${{ cart.get_total_price }}</p>
+        </div>
+    </section>
+</div>
+{% endblock %}

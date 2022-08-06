@@ -60,7 +60,7 @@
         <div>
             <p class="flex justify-end items-center gap-4">
                 <a href="{% url 'shop:product_list' %}" class="block py-4 px-4 bg-gray-300">Continue shopping</a>
-                <a href="#" class="block py-4 px-4 bg-blue-100">Checkout</a>
+                <a href="{% url 'orders:order_create' %}" class="block py-4 px-4 bg-blue-100">Checkout</a>
             </p>
         </div>
     </section>
