@@ -39,7 +39,7 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('-created',)
 
     def __str__(self):
         return self.name
