@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+import braintree
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
-    'orders.apps.OrdersConfig'
+    'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +134,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Braintree settings
+BRAINTREE_MERCHANT_ID = '2sy45h3jxxhg2zvb' # Merchant ID
+BRAINTREE_PUBLIC_KEY = 'st9dtjr73cxddf8x' # Public Key
+BRAINTREE_PRIVATE_KEY = '109a21d6f423a876c10a5dfeb257b228'
+
+
+BRAINTREE_CONF = braintree.Configuration(
+    environment=braintree.Environment.Sandbox,
+    merchant_id= BRAINTREE_MERCHANT_ID,
+    public_key= BRAINTREE_PUBLIC_KEY,
+    private_key= BRAINTREE_PRIVATE_KEY
+)
